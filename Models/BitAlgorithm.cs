@@ -5,9 +5,9 @@ using System.Text;
 namespace PowerOfTwoApp.Models
 {
     /// <summary>
-    /// Алгоритм проверки: метод последовательного деления. Делим число на 2, пока не получим 1 или остаток
+    /// Алгоритм проверки: битовые операции. Используем свойство: n & (n-1) == 0 для степеней двойки
     /// </summary>
-    public class DivisionAlgorithm
+    public class BitAlgorithm
     {
         public int OperationCount { get; private set; }
 
@@ -19,26 +19,20 @@ namespace PowerOfTwoApp.Models
         public bool Check(long number)
         {
             OperationCount = 0;
-            
+
             OperationCount++;
             if (number < 1)
             {
                 return false;
             }
 
-            while (number%2==0)
-            {
-                OperationCount += 2;
-                number = number/2;
-            }
-
-            OperationCount++;
-            return number == 1;
+            OperationCount += 3;
+            return (number & (number - 1)) == 0;
         }
 
         public string GetName()
         {
-            return "Метод деления";
+            return "Битовые операции";
         }
     }
 }
