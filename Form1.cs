@@ -10,6 +10,7 @@ namespace PowerOfTwoApp
         private DivisionAlgorithm _divisionAlgo;
         private BitAlgorithm _bitAlgo;
         private ExperimentRunner _experimentRunner;
+        private AlgorithmService _algorithmService;
 
         public MainForm()
         {
@@ -18,20 +19,9 @@ namespace PowerOfTwoApp
             _divisionAlgo = new DivisionAlgorithm();
             _bitAlgo = new BitAlgorithm();
             _experimentRunner = new ExperimentRunner(_divisionAlgo, _bitAlgo);
+            _algorithmService = new AlgorithmService(_divisionAlgo, _bitAlgo);
         }
 
-        /// <summary>
-        /// Запускает алгоритм и замеряет время
-        /// </summary>
-        private (bool result, double timeMs) RunAlgorithm(dynamic algo, long number)
-        {
-            var stopwatch = Stopwatch.StartNew();
-            bool result = algo.Check(number);
-            stopwatch.Stop();
-
-            double timeMs = stopwatch.ElapsedTicks * 1000.0 / Stopwatch.Frequency;
-            return (result, timeMs);
-        }
         private void buttonCheck_Click(object sender, EventArgs e)
         {
             dataGridViewResults.Rows.Clear();
@@ -52,25 +42,22 @@ namespace PowerOfTwoApp
                 return;
             }
 
-            // Первый алгоритм
-            var (result1, time1) = RunAlgorithm(_divisionAlgo, number);
-            dataGridViewResults.Rows.Add(
-                _divisionAlgo.GetName(),
-                result1 ? "Да" : "Нет",
-                _divisionAlgo.OperationCount,
-                time1.ToString("F4")
-            );
+            var results = _algorithmService.CheckNumber(number);
 
-            // Второй алгоритм
-            var (result2, time2) = RunAlgorithm(_bitAlgo, number);
-            dataGridViewResults.Rows.Add(
-                _bitAlgo.GetName(),
-                result2 ? "Да" : "Нет",
-                _bitAlgo.OperationCount,
-                time2.ToString("F4")
-            );
+            dataGridViewResults.Rows.Clear();
+            foreach (var result in results)
+            {
+                dataGridViewResults.Rows.Add(
+                    result.AlgorithmName,
+                    result.IsPowerOfTwo,
+                    result.OperationCount,
+                    result.TimeMs
+                );
+            }
 
-            labelResult.Text = $"Число {number} {(result1 ? "является" : "НЕ является")} степенью двойки";
+            bool isPower = results[0].IsPowerOfTwo == "Да";
+            labelResult.Text = AlgorithmService.FormatPowerInfo(number, isPower);
+
         }
 
         private void buttonExp_Click(object sender, EventArgs e)
@@ -89,10 +76,6 @@ namespace PowerOfTwoApp
                 chartComparison.Series[0].Points.AddXY(result.Power, result.DivisionTime);
                 chartComparison.Series[1].Points.AddXY(result.Power, result.BitTime);
             }
-
-            await Task.Delay(100);  // Небольшая задержка
-            chartComparison.Update();
-            chartComparison.Refresh();
 
             MessageBox.Show($"Эксперимент завершён! Проведено {powers.Length} замеров.", "Готово");
 
