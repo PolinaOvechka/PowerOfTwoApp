@@ -151,6 +151,8 @@
             // 
             // chartComparison
             // 
+            chartArea1.AxisX.Title = "Степень (2^n)";
+            chartArea1.AxisY.Title = "Время (мс)";
             chartArea1.Name = "MainArea";
             chartComparison.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
@@ -197,7 +199,7 @@
             label3.Name = "label3";
             label3.Size = new Size(848, 33);
             label3.TabIndex = 9;
-            label3.Text = "Эксперимент проводится на 10 различных степенях двойки. Каждый алгоритм запускается 1000 раз для каждого числа, вычисляется среднее время выполнения для каждого метода.";
+            label3.Text = "Эксперимент проводится на 10 различных степенях двойки. Каждый алгоритм запускается 100 раз для каждого числа, вычисляется среднее время выполнения для каждого метода.";
             // 
             // MainForm
             // 

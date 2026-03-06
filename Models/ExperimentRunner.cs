@@ -37,7 +37,7 @@ namespace PowerOfTwoApp.Models
         /// <param name="powers">Степени двойки для теста</param>
         /// <param name="iterations">Количество запусков для усреднения</param>
         /// <returns>Список результатов</returns>
-        public List<ExperimentResult> RunExperiment(int[] powers, int iterations = 1000)
+        public List<ExperimentResult> RunExperiment(int[] powers, int iterations = 100)
         {
             var results = new List<ExperimentResult>();
 

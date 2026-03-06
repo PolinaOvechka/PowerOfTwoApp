@@ -90,7 +90,13 @@ namespace PowerOfTwoApp
                 chartComparison.Series[1].Points.AddXY(result.Power, result.BitTime);
             }
 
+            await Task.Delay(100);  // Небольшая задержка
+            chartComparison.Update();
+            chartComparison.Refresh();
+
             MessageBox.Show($"Эксперимент завершён! Проведено {powers.Length} замеров.", "Готово");
+
+
         }
     }
 }
