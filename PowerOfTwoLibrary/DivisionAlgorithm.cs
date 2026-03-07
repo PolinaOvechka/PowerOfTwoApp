@@ -19,17 +19,17 @@ namespace PowerOfTwoApp.Models
         public bool Check(long number)
         {
             OperationCount = 0;
-            
+
             OperationCount++;
             if (number < 1)
             {
                 return false;
             }
 
-            while (number%2==0)
+            while (number % 2 == 0)
             {
                 OperationCount += 2;
-                number = number/2;
+                number = number / 2;
             }
 
             OperationCount++;

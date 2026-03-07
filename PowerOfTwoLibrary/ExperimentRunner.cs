@@ -26,7 +26,7 @@ namespace PowerOfTwoApp.Models
             public int Power { get; set; }
             public long Number { get; set; }
             public double DivisionTime { get; set; }
-            public double BitTime { get; set; }   
+            public double BitTime { get; set; }
             public int DivisionOps { get; set; }
             public int BitOps { get; set; }
         }

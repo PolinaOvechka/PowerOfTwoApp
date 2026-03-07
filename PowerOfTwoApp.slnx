@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="PowerOfTwoApp.Tests/PowerOfTwoApp.Tests.csproj" Id="462949bd-9d60-4685-87f3-3ff316ce9bdd" />
   <Project Path="PowerOfTwoApp/PowerOfTwoApp.csproj" />
+  <Project Path="PowerOfTwoLibrary/PowerOfTwoLibrary.csproj" Id="77d7575b-1dd7-4ed3-812f-363e6c1208f8" />
 </Solution>
